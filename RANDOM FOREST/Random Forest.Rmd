@@ -1,0 +1,489 @@
+---
+title: "Random Forest"
+author: "H.N. ASHIQUR RUHULLAH"
+
+output: 
+ html_document:
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+\
+<h1> **What Is Random Forest?**</h1>
+\
+
+**Random forest** is a way of averaging multiple deep decision trees, trained on different parts of the same training set, with the goal of overcoming over-fitting problem of individual decision tree.
+
+In other words, random forests are an ensemble learning method for classification and regression that operate by constructing a lot of decision trees at training time and outputting the class that is the mode of the classes output by individual trees.
+
+**Random forest algorithm is a supervised classification and regression algorithm. As the name suggests, this algorithm randomly creates a forest with several trees.**
+
+Generally, the more trees in the forest the more robust the forest looks like. Similarly, in the random forest classifier, the higher the number of trees in the forest, greater is the accuracy of the results.
+\
+![](G:\DATA SCIENCE\SOFTANBEES\WORKING PROCEDURE\RANDOM FOREST\images\Classification.png)
+\
+              <h6><centar>**Fig: Random Forest**</center></h6> 
+
+\
+In simple words, Random forest builds multiple decision trees (called the forest) and glues them together to get a more accurate and stable prediction. The forest it builds is a collection of Decision Trees, trained with the bagging method.
+
+Before we discuss Random Forest in depth, we need to understand how Decision Trees work.
+
+Many of you have this question in mind:
+\
+<h1> **Difference Between Random Forest And Decision Trees?**</h1>
+
+\
+When using a decision tree model on a given training dataset the accuracy keeps improving with more and more splits. You can easily overfit the data and doesn't know when you have crossed the line unless you are using cross validation (on training data set). The advantage of a simple decision tree is model is easy to interpret, you know what variable and what value of that variable is used to split the data and predict outcome.
+
+A random forest is like a black box and works as mentioned in above answer. It's a forest you can build and control. You can specify the number of trees you want in your forest(n_estimators) and also you can specify max num of features to be used in each tree. But you cannot control the randomness, you cannot control which feature is part of which tree in the forest, you cannot control which data point is part of which tree. Accuracy keeps increasing as you increase the number of trees, but becomes constant at certain point. Unlike decision tree, it won't create highly biased model and reduces the variance.
+
+**When to use to decision tree**
+\
+- When you want your model to be simple and explainable\
+
+- When you want non parametric model\
+
+- When you don't want to worry about feature selection or regularization or worry about multi-collinearity.\
+
+- You can overfit the tree and build a model if you are sure of validation or test data set is going to be subset of training data set or almost overlapping instead of unexpected.
+\
+\
+
+**When to use random forest:**
+
+- When you don't bother much about interpreting the model but want better accuracy.\
+
+- Random forest will reduce variance part of error rather than bias part, so on a given training data set decision tree may be more accurate than a random forest. But on an unexpected validation data set, Random forest always wins in terms of accuracy..
+\
+\
+\
+![](G:\DATA SCIENCE\SOFTANBEES\WORKING PROCEDURE\RANDOM FOREST\images\Randomtree.jpg)
+\
+\
+
+# **Why Use Random Forest?** 
+\
+You might be wondering why we use Random Forest when we can solve the same problems using Decision trees.
+
+Let me explain.
+
+- Even though Decision trees are convenient and easily implemented, they lack accuracy. Decision trees work very effectively with the training data that was used to build them, but they’re not flexible when it comes to classifying the new sample. Which means that the accuracy during testing phase is very low.\
+
+- This happens due to a process called Over-fitting.\
+
+##### **" Over-fitting occurs when a model studies the training data to such an extent that it negatively influences the performance of the model on new data. "**
+\
+
+- This means that the disturbance in the training data is recorded and learned as concepts by the model. But the problem here is that these concepts do not apply to the testing data and negatively impact the model’s ability to classify the new data, hence reducing the accuracy on the testing data.
+\
+
+This is where Random Forest comes in. It is based on the idea of bagging, which is used to reduce the variation in the predictions by combining the result of multiple Decision trees on different samples of the data set.
+
+Now let’s focus on Random Forest.
+\
+\
+
+
+# **What is Overfitting?**
+\
+
+Explaining your training data instead of finding patterns that generalize is what overfitting is. In other words, your model learns the training data by heart instead of learning the patterns which prevent it from being able to generalized to the test data. It means your model fits well to training dataset but fails to the validation dataset.
+
+
+<h1>**Popularity of Random Forest Algorithm**</h1>
+\
+
+Random Forest is one of the most widely used machine learning algorithm for classification. It can also be used for regression model (i.e. continuous target variable) but it mainly performs well on classification model (i.e. categorical target variable). It has become a lethal weapon of modern data scientists to refine the predictive model. The best part of the algorithm is that there are a very few assumptions attached to it so data preparation is less challenging and results to time saving. It's listed as a top algorithm (with ensembling) in Kaggle Competitions.
+
+**Can Random Forest be used both for Continuous and Categorical Target Variable?**
+
+Yes, it can be used for both continuous and categorical target (dependent) variable. In random forest/decision tree, **classification model** refers to factor/categorical dependent variable and **regression model** refers to numeric or continuous dependent variable.
+
+
+
+# **How Does Random Forest Work?**\
+\
+To understand Random forest, consider the below sample data set. In this data set we have four predictor variables, namely:
+
+- Weight\
+- Blood flow\
+- Blocked Arteries\
+- Chest Pain\
+\
+
+![](G:\DATA SCIENCE\SOFTANBEES\WORKING PROCEDURE\RANDOM FOREST\images\dataset.png)
+
+\
+These variables are used to predict whether or not a person has heart disease. We’re going to use this data set to create a Random Forest that predicts if a person has heart disease or not.
+\
+
+
+Now, 
+Each tree is grown as follows:
+
+1. Random Record Selection : Each tree is trained on roughly 2/3rd of the total training data (exactly 63.2%) . Cases are drawn at random with replacement from the original data. This sample will be the training set for growing the tree.
+
+2. Random Variable Selection : Some predictor variables (say, m) are selected at random out of all the predictor variables and the best split on these m is used to split the node.
+
+
+
+**"By default, m is square root of the total number of all predictors for classification. For regression, m is the total number of all predictors divided by 3."**
+
+The value of m is held constant during the forest growing.
+
+Note : In a standard tree, each split is created after examining every variable and picking the best split from all the variables.
+
+
+3. For each tree, using the leftover (36.8%) data, calculate the misclassification rate - **out of bag (OOB) error rate**. Aggregate error from all trees to determine **overall OOB error rate** for the classification. If we grow 200 trees then on average a record will be OOB for about .37*200=74 trees.
+
+
+4. Each tree gives a classification on leftover data (OOB), and we say the tree "votes" for that class. The forest chooses the classification having the most votes over all the trees in the forest. 
+
+**For a binary dependent variable, the vote will be YES or NO, count up the YES votes. This is the RF score and the percent YES votes received is the predicted probability. In regression case, it is average of dependent variable.**
+
+For example, suppose we fit 500 trees, and a case is out-of-bag in 200 of them:
+- 160 trees votes class 1
+- 40 trees votes class 2
+
+In this case, RF score is class1. Probability for that case would be 0.8 which is 160/200. Similarly, it would be an average of target variable for regression problem.
+
+ \
+ 
+
+**Out of Bag Predictions for Continuous Variable**
+
+
+In the image below, NA refers to the record available in training data but not in out-of-bag record while growing each tree. Whereas, non-NA values refer to values in out-of-bag record.
+
+
+![](G:\DATA SCIENCE\SOFTANBEES\WORKING PROCEDURE\RANDOM FOREST\images\oob predictions.png)
+
+ Average OOB prediction for the entire forest is calculated by taking row mean of OOB prediction of trees. See the result below -
+
+![](G:\DATA SCIENCE\SOFTANBEES\WORKING PROCEDURE\RANDOM FOREST\images\mean oob.png)
+\
+
+**Important Point**
+\
+
+**"It is because each tree is grown on a bootstrap sample and we grow a large number of trees in a random forest, such that each observation appears in the OOB sample for a good number of trees. Hence, out of bag predictions can be provided for all cases."**
+\
+
+
+# **Preparing Data for Random Forest**
+
+**1. Imbalance Data set**\
+
+A data set is class-imbalanced if one class contains significantly more samples than the other. In other words, non-events have very large number of records than events in dependent variable.
+
+In such cases, it is challenging to create an appropriate testing and training data sets, given that most classifiers are built with the assumption that the test data is drawn from the same distribution as the training data.
+
+Presenting imbalanced data to a classifier will produce undesirable results such as a much lower performance on the testing than on the training data. To deal with this problem, you can do undersampling of non-events.
+
+
+**"It means down-sizing the non-events by removing observations at random until the dataset is balanced."**
+
+
+2. Random forest is affected by multicollinearity but not by outlier problem.\
+
+3. Impute missing values within random forest as proximity matrix as a measure\
+
+
+
+# **Terminologies related to random forest algorithm:**
+
+**1. Bagging (Bootstrap Aggregating)**
+Generates m new training data sets. Each new training data set picks a sample of observations with replacement (bootstrap sample) from original data set. By sampling with replacement, some observations may be repeated in each new training data set. The m models are fitted using the above m bootstrap samples and combined by averaging the output (for regression) or voting (for classification).
+
+**2. Out-of-Bag Error (Misclassification Rate)**
+Out-of-Bag is equivalent to validation or test data. In random forests, there is no need for a separate test set to validate result. It is estimated internally, during the run, as follows:
+As the forest is built on training data , each tree is tested on the 1/3rd of the samples (36.8%) not used in building that tree (similar to validation data set). This is the out of bag error estimate - an internal error estimate of a random forest as it is being constructed.
+
+**3. Bootstrap Sample**
+It is a random with replacement sampling method.
+Example : Suppose we have a bowl of 100 unique numbers from 0 to 99. We want to select a random sample of numbers from the bowl. If we put the number back in the bowl, it may be selected more than once. In this process, we are sampling randomly with replacement.
+
+**4. Proximity (Similarity)**
+
+Random Forest defines proximity between two observations :
+
+i. Initialize proximities to zeroes\
+
+ii. For any given tree, apply the tree to all cases\
+
+iii. If case i and case j both end up in the same node, increase proximity prox(ij) between i and j by one\
+
+iv. Accumulate over all trees in RF and normalize by twice the number of trees in RF
+It creates a proximity matrix (a square matrix with 1 on the diagonal and values between 0 and 1 in the off-diagonal positions).Observations that are “alike” will have proximities close to 1. The closer proximity to 0, the more dissimilar cases are.
+
+Proximity matrix is used for the following cases :
+
+i. Missing value imputation
+ii. Outlier detection
+
+
+
+**The forest error rate depends on two things:**
+
+1. The correlation between any two trees in the forest. Increasing the correlation increases the forest error rate.
+
+2. The strength of each individual tree in the forest. A tree with a low error rate is a strong classifier. Increasing the strength of the individual trees decreases the forest error rate.
+
+
+**"Reducing mtry ( Number of random variables used in each tree) reduces both the correlation and the strength. Increasing it increases both. Somewhere in between is an "optimal" range of mtry - usually quite wide. Using the oob error rate a value of mtry in the range can quickly be found. This is the only adjustable parameter to which random forests is somewhat sensitive"**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# **Creating A Random Forest**\
+\
+**Step 1: Create a Bootstrapped Data Set**\
+\
+\ 
+Bootstrapping is an estimation method used to make predictions on a data set by re-sampling it. To create a bootstrapped data set, we must randomly select samples from the original data set. A point to note here is that we can select the same sample more than once.
+\
+\
+![](G:\DATA SCIENCE\SOFTANBEES\WORKING PROCEDURE\RANDOM FOREST\images\Bootstrapped DataSet.png)
+\
+\
+In the above figure, I have randomly selected samples from the original data set and created a bootstrapped data set. Simple, isn’t it? Well, in real-world problems you’ll never get such a small data set, thus creating a bootstrapped data set is a little more complex.
+\
+\
+**Step 2: Creating Decision Trees**
+\
+\
+- Our next task is to build a Decision Tree by using the bootstrapped data set created in the previous step. Since we’re making a Random Forest we will not consider the entire data set that we created, instead we’ll only use a random subset of variables at each step.
+\
+\
+- In this example, we’re only going to consider two variables at each step. So, we begin at the root node, here we randomly select two variables as candidates for the root node.
+\
+\
+- Let’s say we selected Blood Flow and Blocked arteries. Out of these 2 variables, we must now select the variable that best separates the samples. For the sake of this example, let’s say that Blocked Arteries is a more significant predictor and thus assign it as the root node.
+\
+\
+- Our next step is to repeat the same process for each of the upcoming branch nodes. Here, we again select two variables at random as candidates for the branch node and then choose a variable that best separates the samples.
+\
+\
+![](G:\DATA SCIENCE\SOFTANBEES\WORKING PROCEDURE\RANDOM FOREST\images\Random Forest Algorith.jpg)
+
+\
+**We just created our first Decision tree.**
+
+\
+**Step 3: Go back to Step 1 and Repeat**
+\
+\
+Like I mentioned earlier, Random Forest is a collection of Decision Trees. Each Decision Tree predicts the output class based on the respective predictor variables used in that tree. Finally, the outcome of all the Decision Trees in a Random Forest is recorded and the class with the majority votes is computed as the output class.
+\
+Thus, we must now create more decision trees by considering a subset of random predictor variables at each step. To do this, go back to step 1, create a new bootstrapped data set and then build a Decision Tree by considering only a subset of variables at each step. So, by following the above steps, our Random Forest would look something like this:
+\
+\
+
+
+![](G:\DATA SCIENCE\SOFTANBEES\WORKING PROCEDURE\RANDOM FOREST\images\Step 3 Random Forest.jpg)
+
+\
+\
+This iteration is performed 100’s of times, therefore creating multiple decision trees with each tree computing the output, by using a subset of randomly selected variables at each step.
+
+Having such a variety of Decision Trees in a Random Forest is what makes it more effective than an individual Decision Tree created using all the features and the whole data set.
+\
+
+**Step 4: Predicting the outcome of a new data point**
+\
+
+Now that we’ve created a random forest, let’s see how it can be used to predict whether a new patient has heart disease or not.
+The below diagram has the data about the new patient. All we have to do is run this data down the decision trees that we made.
+
+The first tree shows that the patient has heart disease, so we keep a track of that in a table as shown in the figure.
+\
+\
+![](G:\DATA SCIENCE\SOFTANBEES\WORKING PROCEDURE\RANDOM FOREST\images\Output.jpg)
+
+
+Similarly, we run this data down the other decision trees and keep a track of the class predicted by each tree. After running the data down all the trees in the Random Forest, we check which class got the majority votes. In our case, the class ‘Yes’ received the most number of votes, hence it’s clear that the new patient has heart disease.
+
+To conclude, we bootstrapped the data and used the aggregate from all the trees to make a decision, this process is known as Bagging.
+
+\
+ **Step 5: Evaluate the Model** 
+ \
+ 
+ Our final step is to evaluate the Random Forest model. Earlier while we created the bootstrapped data set, we left out one entry/sample since we duplicated another sample. In a real-world problem, about 1/3rd of the original data set is not included in the bootstrapped data set.
+
+The below figure shows the entry that didn’t end up in the bootstrapped data set.
+
+![](G:\DATA SCIENCE\SOFTANBEES\WORKING PROCEDURE\RANDOM FOREST\images\Out of bag sample.png)
+\
+\
+This sample data set that does not include in the bootstrapped data set is known as the Out-Of-Bag (OOB) data set.
+\
+<h4> **" The Out-Of-Bag data set is used to check the accuracy of the model, since the model wasn’t created using this OOB data it will give us a good understanding of whether the model is effective or not. "**</h4>
+\
+
+
+In our case, the output class for the OOB data set is ‘No’. So, in order for our Random Forest model to be accurate, if we run the OOB data down the Decision trees, we must get a majority of ‘No’ votes. This process is carried out for all the OOB samples, in our case we only had one OOB, however, in most problems, there are usually many more samples.
+
+Therefore, eventually, we can measure the accuracy of a Random Forest by the proportion of OOB samples that are correctly classified.
+
+The proportion of OOB samples that are incorrectly classified is called the Out-Of-Bag Error. So that was an example of how Random Forest works.
+
+Now let’s get our hands dirty and implement the Random Forest algorithm to solve a more complex problem.
+
+\
+\
+# **How to fine tune random forest**\
+
+Two parameters are important in the random forest algorithm:
+
+- Number of trees used in the forest (ntree ) and\
+
+- Number of random variables used in each tree (mtry ).
+\
+\
+
+# **Random Forest R Code** \
+\
+
+**Step I : Data Preparation**
+\
+
+Dataset Description : It's a German Credit Data consisting of 21 variables and 1000 records. The dependent or target variable is Creditability which explains whether a loan should be granted to a customer based on his/her profiles. 
+
+```{r}
+mydata= read.csv("G:\\DATA SCIENCE\\SOFTANBEES\\WORKING PROCEDURE\\RANDOM FOREST//german_credit.csv")
+
+# Check types of variables
+str(mydata)
+```
+
+
+\
+\
+```{r}
+# Check number of rows and columns
+dim(mydata)
+# Make dependent variable as a factor (categorical)
+mydata$Creditability = as.factor(mydata$Creditability)
+```
+\
+\
+**Step II : Run the random forest model**
+\
+```{r}
+library(randomForest)
+set.seed(71)
+rf <-randomForest(Creditability~.,data=mydata, ntree=500) 
+print(rf)
+```
+
+
+**Note :** If a dependent variable is a factor, classification is assumed, otherwise regression is assumed. If omitted, randomForest will run in unsupervised mode.
+
+
+In this case, the number of variables tried at each split is based on the following formula. -1 is used as dataset contains dependent variable as well.
+
+```{r}
+floor(sqrt(ncol(mydata) - 1))
+```
+\
+The number of variables selected at each split is denoted by mtry in randomforest function.
+\
+**Step III : Find the optimal mtry value**
+
+
+
+Select mtry value with minimum out of bag(OOB) error.
+
+
+
+```{r}
+mtry <- tuneRF(mydata[-1],mydata$Creditability, ntreeTry=500,
+               stepFactor=1.5,improve=0.01, trace=TRUE, plot=TRUE)
+best.m <- mtry[mtry[, 2] == min(mtry[, 2]), 1]
+print(mtry)
+print(best.m)
+```
+
+
+
+In this case, mtry = 4 is the best mtry as it has least OOB error. mtry = 4 was also used as default mtry.
+
+
+**Parameters in tuneRF function**\
+
+i. The stepFactor specifies at each iteration, mtry is inflated (or deflated) by this value \
+
+ii. The improve specifies the (relative) improvement in OOB error must be by this much for the search to continue\
+
+iii. The trace specifies whether to print the progress of the search\
+
+iv. The plot specifies whether to plot the OOB error as function of mtry\
+\
+
+
+\
+**Build model again using best mtry value.**
+
+
+```{r}
+set.seed(71)
+rf <-randomForest(Creditability~.,data=mydata, mtry=best.m, importance=TRUE,ntree=500)
+print(rf)
+#Evaluate variable importance
+importance(rf)
+varImpPlot(rf)
+```
+
+
+
+
+**Higher the value of mean decrease accuracy or mean decrease gini score , higher the importance of the variable in the model. In the plot shown above, Account Balance is most important variable.**
+\
+
+**1) Mean Decrease Accuracy -** How much the model accuracy decreases if we drop that variable.\
+\
+**2) Mean Decrease Gini -** Measure of variable importance based on the Gini impurity index used for the calculation of splits in trees.
+\
+
+# **Prediction and Calculate Performance Metrics**
+\
+```{r}
+pred1=predict(rf,type = "prob")
+library(ROCR)
+perf = prediction(pred1[,2], mydata$Creditability)
+
+# 1. Area under curve
+auc = performance(perf, "auc")
+auc
+
+# 2. True Positive and Negative Rate
+pred3 = performance(perf, "tpr","fpr")
+
+# 3. Plot the ROC curve
+plot(pred3,main="ROC Curve for Random Forest",col=2,lwd=2)
+
+abline(a=0,b=1,lwd=2,lty=2,col="gray")
+```
+
+
+\
+
+
+
+
