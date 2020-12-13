@@ -1,0 +1,23 @@
+
+ How is R programming helpful?
+ => The R programming language is an important tool for development 
+    in the numeric analysis and machine learning spaces. 
+    With machines becoming more important as data generators, 
+    the popularity of the language can only be expected to grow.
+
+
+Why R programming is important in data analysis?
+=> R is very important in data science because of its versatility 
+   in the field of statistics. R is usually used in the field 
+   of data science when the task requires special analysis of data for
+   standalone or distributed computing. R is also perfect for exploration.
+
+
+What can R programming do And Why we Need?
+=> R is a programming language and environment commonly used in statistical computing, 
+   data analytics and scientific research. It is one of the most popular languages 
+   used by statisticians, data analysts, researchers and marketers to retrieve,
+   clean, analyze, visualize and present data.
+
+
+What IS Data Types ?

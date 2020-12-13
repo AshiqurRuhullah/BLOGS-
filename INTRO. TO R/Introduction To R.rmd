@@ -1,0 +1,950 @@
+---
+title: "INTRODUCTION TO R"
+author: "H.N. ASHIQUR RUHULLAH"
+
+output:
+  html_document:
+    toc: true
+    toc_float: true
+
+---
+
+
+--------------------------------------------------------------------------------------------------------
+<h1> **Basic idea about R programming**</h1>
+--------------------------------------------------------------------------------------------------------
+
+- **How is R programming helpful?**
+ 
+ 
+  The R programming language is an important tool for development in the numeric analysis and machine learning spaces With machines becoming    more important as data generators, the popularity of the language can only be expected to grow.
+\
+
+- **Why R programming is important in data analysis?** 
+
+
+   R is very important in data science because of its versatility 
+   in the field of statistics. R is usually used in the field 
+   of data science when the task requires special analysis of data for
+   standalone or distributed computing. R is also perfect for exploration.\
+\
+
+- **What can R programming do and why we need?**
+
+
+ R is a programming language and environment commonly used in statistical computing, 
+   data analytics and scientific research. It is one of the most popular languages 
+   used by statisticians, data analysts, researchers and marketers to retrieve,
+   clean, analyze, visualize and present data.\
+   
+   
+   
+   
+you can use install command at R prompt to install the required **package**. \
+For example, the following command will install  package which is required for 3D charts.\
+
+**install.packages("Your Package Name")**
+\
+\
+\
+
+ 
+  
+  <h1>**Data Type**</h1>
+------------------------------------------------------------------------------------------------------------
+
+- **What is Data Type? And why we used Data Type? **\
+ 
+Data types can be recalled as type of data or the behavior of the data. Generally every data type is describing how the data will communicate and what type of data can be stored. As an example if a data is fraction the data type should be Integer, float / double, Character type etc. Mainly we need Data Type and working process is it's Assessing te environment. 
+
+------------------------------------------------------------------------------------------------------------
+  
+ **The basic datatypes on which the R-objects are built like - **\
+
+ 1. Numeric\
+ 2. Integer\
+ 3. Factor \ 
+ 4. Complex\
+ 5. Logical.\
+ 6. Character\
+
+-------------------------------------------------------------------------------------------------------------
+  
+
+<h2><center>**Numeric**</center></h2>
+
+-------------------------------------------------------------------------------------------------------------
+
+- Decimal values are called numerics in R. It is the default computational data type. If we assign a decimal value to a variable x as follows, x will be of numeric type.\
+
+- Numeric data types are numbers stored in database columns. The exact numeric types are INTEGER , BIGINT , DECIMAL , NUMERIC , NUMBER , and MONEY . Approximate numeric types, values where the precision needs to be preserved and the scale can be floating.\
+\
+**For Example: **\
+
+If we assign a decimal value to a variable x as follows, x will be of numeric type.\
+```{r}
+ 
+ x = 10.5       # assign a decimal value 
+ x              # print the value of x 
+ 
+ class(x)       # print the class name of x 
+
+
+```
+\
+even if we assign an integer to a variable k, it is still being saved as a numeric value.\
+```{r}
+k = 1 
+k              # print the value of k 
+
+ class(k)       # print the class name of k 
+```
+\
+The fact that k is not an integer can be confirmed with the is.integer function. We will discuss how to create an integer in our next tutorial on the integer type.\
+```{r}
+is.integer(k)  # is k an integer? 
+```
+
+\
+  
+  <h2><center>**Integer**</center></h2> 
+  
+\
+\
+  
+- **What's the difference between numeric and integer in R?**\
+\
+ As you can see "integer" is a subset of "numeric". \
+Integers only go to a little more than 2 billion, while the other numerics can be much bigger. They can be bigger because they are stored as double precision floating point numbers.\
+For example, 1:5 creates an integer vector of numbers from 1 to 5.
+
+
+**Integer:**
+An integer (positive or negative). Many R programmers do not use this mode since every integer value can be represented as a double.\
+In order to create an integer variable in R, we invoke the integer function. We can be assured that y is indeed an integer by applying the is.integer function.\
+\
+
+```{r}
+ y = as.integer(3) 
+ y              # print the value of y
+```
+```{r}
+class(y)       # print the class name of y 
+```
+```{r}
+is.integer(y)  # is y an integer? 
+```
+\
+\
+
+
+ **Suffix:**\
+To define the minimum width type and/or make unsigned the constant.
+         They are represented in many ways according to their data types.\
+         \
+1) **int:** No suffix are required because integer constant are by default assigned as int data type.\
+\
+2) **unsigned int:** character u or U at the end of integer constant.\
+\
+3) **long int:** character l or L at the end of integer constant.\
+\
+4) **unsigned long int:** character ul or UL at the end of integer constant.\
+\
+5) **long long int:** character ll or LL at the end of integer constant.\
+\
+6) **unsigned long long int:** character ull or ULL at the end of integer constant.\
+
+\
+
+To create an integer variable in R, we need to call the (as.Integer) function while assigning value to a variable.
+For example:- \
+\
+```{r}
+e = as.integer(3)
+class(e)
+```
+\
+Another way of creating an integer variable is by using the L keyword as follows:\
+```{r}
+x = 5L
+class(x)
+
+```
+
+--------------------------------------------------------------------------------------------------------------------
+<h2><center>**Factor**</center></h2>
+--------------------------------------------------------------------------------------------------------------------
+
+**Factors** are the r-objects which are created using a vector. It stores the vector along with the distinct values of the elements in the vector as labels. The labels are always character irrespective of whether it is numeric or character or Boolean etc.\
+
+  - Factors are used to represent categorical data. Factors can be ordered or unordered and are an important class for statistical analysis and for plotting.\
+  - Factors are stored as integers, and have labels associated with these unique integers. While factors look (and often behave) like character vectors, they are actually integers under the hood, and you need to be careful when treating them like strings.\
+  - Once created, factors can only contain a pre-defined set values, known as levels. By default, R always sorts levels in alphabetical order. For instance, if you have a factor with 2 levels:\
+  - They are a data type that is used to refer to a qualitative relationship like colors, good & bad, course or movie ratings, etc. They are useful in statistical modeling.\
+ - Factors can only contain pre-defined values.\
+
+
+**The factor() command is used to create and modify factors in R:**
+\
+```{r}
+sex <- factor(c("male", "female", "female", "male"))
+levels(sex)
+```
+
+\
+R will assign 1 to the level "female" and 2 to the level "male" (because f comes before m, even though the first element in this vector is "male"). You can check this by using the function levels(), and check the number of levels using nlevels():\
+
+
+```{r}
+nlevels(sex)
+```
+\
+\
+Sometimes, the order of the factors does not matter, other times you might want to specify the order because it is meaningful (e.g., “low”, “medium”, “high”) or it is required by particular type of analysis. Additionally, specifying the order of the levels allows us to compare levels:
+\
+```{r}
+food <- factor(c("low", "high", "medium", "high", "low", "medium", "high"))
+levels(food)
+```
+\
+Character strings can be converted to factors with as.factor(): \
+\
+```{r}
+text <- c("test1", "test2", "test1", "test1") # create a character vector
+class(text) # to know the class
+```
+\
+```{r}
+text_factor <- as.factor(text) # transform to factor
+class(text_factor) # recheck the class
+```
+
+\
+- **The character strings have been transformed to factors, as shown by its class of the type factor.**\
+\
+
+```{r}
+# variable gender with 20 "male" entries and
+# 30 "female" entries
+
+gender <- c(rep("male",20), rep("female", 30))
+gender <- factor(gender)
+
+# stores gender as 20 1s and 30 2s and associates
+# 1=female, 2=male internally (alphabetically)
+# R now treats gender as a nominal variable
+
+summary(gender)
+```
+
+--------------------------------------------------------------------------------------------------------------------
+<h2><center>**Complex**</center></h2>
+--------------------------------------------------------------------------------------------------------------------
+
+- A complex value in R is defined via the pure imaginary value i.
+- Complex types cannot participate in associations and cannot contain navigation properties.
+
+\
+```{r}
+ k = 1 + 2i     # creating a complex number
+
+ k              # printing the value of k
+```
+\
+```{r}
+z = 1 + 2i     # create a complex number 
+ z              # print the value of z 
+
+class(z)       # print the class name of z 
+
+```
+
+\
+The following gives an error as −1 is not a complex value.
+\
+```{r}
+sqrt(−1)       # square root of −1
+```
+\
+Instead, we have to use the complex value −1 + 0i.
+
+\
+```{r}
+sqrt(−1+0i)    # square root of −1+0i 
+```
+\
+An alternative is to coerce −1 into a complex value.
+\
+```{r}  
+
+sqrt(as.complex(−1)) 
+
+```
+------------------------------------------------------------------------------------------------------------------
+  <h2><center>**Logical **</center></h2>
+------------------------------------------------------------------------------------------------------------------
+
+\
+A variable that can have a value of True and False like a boolean is called a logical variable.
+\
+
+```{r}
+log_true <- TRUE
+print(log_true)
+
+```
+\
+```{r}
+ class(log_true)
+
+```
+\
+```{r}
+ log_false <- FALSE
+print(log_false)
+
+```
+\
+Logical
+A logical value is often created via comparison between variables.\
+
+```{r}
+x = 1; y = 2   # sample values 
+z = x > y      # is x larger than y? 
+z               # print the logical value 
+```
+```{r}
+class(z)       # print the class name of z 
+```
+\
+Standard logical operations are "&" (and), "|" (or), and "!" (negation).
+\
+```{r}
+u = TRUE; v = FALSE 
+u & v          # u AND v 
+```
+\
+```{r}
+u | v          # u OR v 
+```
+\
+```{r}
+!u             # negation of u 
+```
+
+\
+ 
+-------------------------------------------------------------------------------------------------------------------------
+
+<h1> **Vector**</h1> 
+-------------------------------------------------------------------------------------------------------------------------
+
+  \
+  Vector is a basic data structure in R. It contains element of the same type. The data types can be logical, integer, double, character, complex or raw. A vector's type can be checked with the typeof() function. Another important property of a vector is its length.\
+  \
+- **How to Create Vector in R?**
+\
+  Vectors are generally created using the c() function.\
+  A vector must have elements of the same type, this function will try and coerce elements to the same type, if they are different.\
+ 
+\
+lower to higher types from logical to integer to double to character.
+\
+
+```{r}
+
+x <- c(1, 5, 4, 9, 0)
+typeof(x)
+```
+
+\
+```{r}
+length(x)
+```
+
+
+```{r}
+x <- c(1, 5.4, TRUE, "hello")
+x
+```
+\
+```{r}
+typeof(x)
+```
+
+\
+```{r}
+
+v1 <- c(3,8,4,5,0,11)
+v2 <- c(4,11,0,8,1,2)
+```
+
+\
+```{r}
+#addition
+
+add.result <- v1 + v2
+print(add.result)
+```
+
+\
+```{r}
+#subtraction
+
+add.result <- v1 - v2
+print(add.result)
+```
+\
+
+```{r}
+#multiplication
+
+add.result <- v1 * v2
+print(add.result)
+```
+
+
+```{r}
+#division
+
+add.result <- v1 / v2
+print(add.result)
+```
+
+
+
+
+```{r}
+# Vector sorting
+
+v<- c(4,9,17,3,2,8,15,12,-8,219)
+
+sort.result <- sort(v)
+
+print(sort.result)
+```
+\
+```{r}
+#sort on reverse  order
+
+
+revsort.result <-sort (v, decreasing = TRUE)
+
+print(revsort.result)
+```
+
+
+-------------------------------------------------------------------------------------------------------------------------
+
+<h2> **List**</h2> 
+-------------------------------------------------------------------------------------------------------------------------
+
+Lists are the R objects which contain elements of different types like − numbers, strings, vectors and another list inside it. A list can also contain a matrix or a function as its elements. List is created using list() function.
+\
+  
+  - A list is a generic vector containing other objects.\
+  - A list is an R structure that may contain object of any other types, including other lists. Lots of the modeling functions (like t.test()     for the t test or lm() for linear models) produce lists as their return values, but you can also construct one yourself.\
+```{r}
+
+mylist <- list (a = 1:5, b = "Hi There", c = function(x) x * sin(x))
+
+```
+
+\
+
+ R list is the object which contains elements of different types – \
+- like, strings, numbers, vectors and another list inside it. \
+- R list can also contain a matrix or a function as its elements. \
+- The list is created using the list() function in R. \
+- In other words, a list is a generic vector containing other objects.
+
+\
+\
+**For example:**
+
+The variable x is containing copies of three vectors n, s, b and a numeric value 3.
+  \
+```{r}
+vec <- c(1,2,3)
+```
+  \
+```{r}
+char_vec <- c("Hadoop", "Spark", "Flink", "Mahout")
+
+```
+  \
+```{r}
+logic_vec <- c(TRUE, FALSE, TRUE, FALSE)
+
+```
+  \
+```{r}
+out_list <- list(vec, char_vec, logic_vec)
+out_list
+```
+
+\
+- **How to name list elements in R**
+
+In this section, we will learn to name the R list elements with the help of an example.\
+Let’s create a list containing a vector, matrix, and list.\
+
+\
+**For example:**
+\
+```{r}
+
+data_list <- list(c("Jan","Feb","Mar"), matrix(c(1,2,3,4,-1,9), nrow = 2),list("Red",12.3))
+
+
+```
+\
+```{r}
+names(data_list) <- c("Monat", "Matrix", "Misc")
+
+```
+\
+\
+```{r}
+print(data_list)
+```
+\
+\
+**Access R List elements**\
+In order to give names to the elements of the list:
+\
+```{r}
+names(data_list) <- c("Monat", "Matrix", "Misc")
+```
+**Access the first element of the list.**
+\
+```{r}
+print(data_list[1])     #Accessing the First element
+```
+\
+**Access the third element. As it is also a list, all its elements will print.**
+\
+```{r}
+print(data_list[3])     #Accessing the Third element
+```
+\
+**By using the name of the element access the list elements.**
+\
+```{r}
+print(data_list$Matrix)  #Using name of access element
+```
+\
+- **Convert R list to vector**
+\
+  A list can be converted to a vector so that the elements of the vector can be used for further manipulation. All the arithmetic operations on vectors can be applied after the list is converted into vector. To do this conversion, we can use the unlist() function. It takes the list as input and produces a vector.\
+\
+**For example:**
+\
+ Create lists.\
+```{r}
+int_list <- list(1:5)     
+print(int_list)
+int_list2 <- list(10:14)
+print(int_list2)
+```
+\
+- **Convert the lists to vectors.**
+\
+```{r}
+
+vec1 <- unlist(int_list)
+vec2 <- unlist(int_list2)
+print(vec1)
+print(vec2)
+      
+```
+\
+\
+**Now add the vectors.**
+\
+```{r}
+sum <- vec1 + vec2 
+print(sum)
+```
+\
+\
+**Some Another Example**
+\
+```{r}
+list_data <- list("Red", "Green", c(21,32,11), TRUE, 69.69, 149.2)
+print(list_data)
+```
+\
+```{r}
+
+# Create a list with a vector..
+# in a matrix and a list.
+
+list_data <- list(c("Jan","Feb","Mar"), matrix(c(5,8,3,9,-2,-6), nrow = 3),
+list("green",14.5))
+
+```
+
+```{r}
+# Give name in the list.
+
+names(list_data) <- c("1st Quarter", "A_Matrix", "A Inner list")
+```
+
+```{r}
+# Show the list.
+
+print(list_data)
+```
+
+```{r}
+# Create lists.
+
+list1 <- list(1:9)
+print(list1)
+```
+  \
+```{r}
+list2 <-list(10:15)
+print(list2)
+```
+  
+```{r}
+# Convert the lists to vectors.
+v1 <- unlist(list1)
+v2 <- unlist(list2)
+
+print(v1)
+print(v2)
+```
+
+--------------------------------------------------------------------------------------------------------------------------------
+<h1> **Matrix** </h1> 
+--------------------------------------------------------------------------------------------------------------------------------
+
+In R, a matrix is a collection of elements of the same data type (numeric, character, or logical) arranged into a fixed number of rows and columns. Since you are only working with rows and columns, a matrix is called two-dimensional. You can construct a matrix in R with the **matrix() function**
+\
+- Matrix is a two dimensional data structure in R programming.
+\
+- Matrix is similar to vector but additionally contains the dimension attribute.\
+
+\
+- **How to create a matrix in R programming?**
+\
+- Matrix can be created using the matrix() function.
+
+- Dimension of the matrix can be defined by passing appropriate value for arguments nrow and ncol.
+
+\
+Providing value for both dimension is not necessary. If one of the dimension is provided, the other is inferred from length of the data.
+\
+
+- **How to access elements of a matrix?**
+\
+We can access elements of a matrix using the square bracket [ indexing method. Elements can be accessed as var[row, column]. Here rows and columns are vectors.\
+\
+
+
+ **Matrix**
+```{r}
+M <- matrix(c(3:14), nrow = 3, byrow = TRUE)
+print(M)
+```
+ 
+ \
+```{r}
+# Define the column and row names.
+
+
+rownames = c("row1", "row2", "row3", "row4")
+colnames = c("col1", "col2", "col3")
+```
+ \
+ 
+```{r}
+P <- matrix(c(3:14), nrow = 4, byrow = TRUE, dimnames = list(rownames, colnames))
+print(P)
+```
+ 
+```{r}
+# Create two 2x3 matrices.
+
+matrix1 <- matrix(c(3, 9, -1, 4, 2, 6), nrow = 2)
+print(matrix1)
+```
+ 
+ \
+```{r}
+
+matrix2 <- matrix(c(5, 2, 0, 9, 3, 4), nrow = 2)
+print(matrix2)
+```
+ 
+```{r}
+# Add the matrices.
+
+result <- matrix1 + matrix2
+cat("Result of addition","\n")
+print(result)
+```
+ 
+ \
+```{r}
+# Subtract the matrices
+
+result <- matrix1 - matrix2
+cat("Result of subtraction","\n")
+print(result)
+```
+ \
+```{r}
+# multiply the matrices
+
+result <- matrix1 * matrix2
+cat("Result of subtraction","\n")
+print(result)
+```
+ \
+```{r}
+# Divided the matrices
+
+result <- matrix1 / matrix2
+cat("Result of subtraction","\n")
+print(result)
+```
+ 
+ \
+- **What does mean matrix?**\
+ => A matrix is a collection of numbers arranged into a fixed number of rows and columns. \
+ => Usually the numbers are real numbers. In general, matrices can contain complex numbers but we won't see those here.
+\
+
+----------------------------------------------------------------------------------------------------------------------------------
+<h1>**Data Frame**</h1> 
+----------------------------------------------------------------------------------------------------------------------------------
+\
+- **What do you mean by Data Frame ?**\
+\
+=> A data frame is a table or a two-dimensional array-like structure in which each column contains values of one variable and each row contains one set of values from each column. The data stored in a data frame can be of numeric, factor or character type. Each column should contain same number of data items.
+\
+=> What is a Data Frame?
+A data frame is a list of vectors which are of equal length. A matrix contains only one type of data, while a data frame accepts different data types (numeric, character, factor, etc.).\
+\
+- **How to create a Data Frame**\
+\
+We can create a data frame by passing the variable a,b,c,d into the data.frame() function. We can name the columns with name() and simply specify the name of the variables.\`
+\
+**Arguments:**\
+\
+**df:** It can be a matrix to convert as a data frame or a collection of variables to join \
+**strings As Factors:** Convert string to factor by default. \ 
+\
+We can create our first data set by combining four variables of same length.\
+\
+```{r}
+# Create a, b, c, d variables
+a <- c(10,20,30,40)
+b <- c('book', 'pen', 'textbook', 'pencil_case')
+c <- c(TRUE,FALSE,TRUE,FALSE)
+d <- c(2.5, 8, 10, 7)
+# Join the variables to create a data frame
+df <- data.frame(a,b,c,d)
+df
+```
+\
+
+
+**Some Characteristics**\
+\
+- The column names should be non-empty.\
+- The row names should be unique.\
+- The data stored in a data frame can be of numeric, factor or character type.\
+- Each column should contain same number of data items.\
+\
+\
+- **Create Data Frame**
+\
+```{r}
+# Create the data frame.
+emp.data <- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c("Ashiq","Pasha","Tanvir","Ruhullah","Habib"),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+   
+   start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
+      "2020-08-25")),
+   stringsAsFactors = FALSE
+)
+# Print the data frame.			
+print(emp.data)
+```
+\
+**Get the Structure of the Data Frame** \
+
+The structure of the data frame can be seen by using str() function.
+\
+```{r}
+# Create the data frame.
+emp.data <- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c("Ashiq","Pasha","Tanvir","Ruhullah","Habib"),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+   
+   start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
+      "2020-08-25")),
+   stringsAsFactors = FALSE
+)
+# Get the structure of the data frame.
+str(emp.data)
+```
+\
+**Summary of Data in Data Frame**\
+\
+The statistical summary and nature of the data can be obtained by applying summary() function.
+\
+```{r}
+emp.data <- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c("Ashiq","Pasha","Tanvir","Ruhullah","Habib"),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+   
+   start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
+      "2020-08-25")),
+   stringsAsFactors = FALSE
+)
+# Print the summary.
+print(summary(emp.data))
+```
+\
+**Extract Data from Data Frame**\
+\
+**Extract specific column from a data frame using column name.**
+\
+```{r}
+emp.data <- data.frame(
+   emp_id = c (1:5),
+   emp_name = c("Ashiq","Pasha","Tanvir","Ruhullah","Habib"),
+   salary = c(623.3,515.2,611.0,729.0,843.25),
+   
+   start_date = as.Date(c("2012-01-01","2013-09-23","2014-11-15","2014-05-11",
+      "2020-08-25")),
+   stringsAsFactors = FALSE
+)
+# Extract Specific columns.
+result <- data.frame(emp.data$emp_name,emp.data$salary)
+print(result)
+```
+\
+**Extract the first two rows and then all columns**
+\
+```{r}
+emp.data <- data.frame(
+   emp_id = c (1:5),
+   emp_name = c("Ashiq","Pasha","Tanvir","Ruhullah","Habib"),
+   salary = c(623.3,515.2,611.0,729.0,843.25),
+   
+   start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
+      "2020-08-25")),
+   stringsAsFactors = FALSE
+)
+# Extract first two rows.
+result <- emp.data[1:2,]
+print(result)
+```
+\
+**Extract 3rd and 5th row with 2nd and 4th column**
+\
+```{r}
+emp.data <- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c("Ashiq","Pasha","Tanvir","Ruhullah","Habib"),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+   
+	start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
+      "2015-08-25")),
+   stringsAsFactors = FALSE
+)
+
+# Extract 3rd and 5th row with 2nd and 4th column.
+result <- emp.data[c(3,5),c(2,4)]
+print(result)
+```
+\
+**Expand Data Frame**\
+**A data frame can be expanded by adding columns and rows.**
+\
+\
+**Add Column**\
+**Just add the column vector using a new column name.**
+\
+```{r}
+emp.data <- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c("Ashiq","Pasha","Tanvir","Ruhullah","Habib"),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+   
+   start_date = as.Date(c("2015-01-01", "2016-09-23", "2017-11-15", "2017-05-11",
+      "2015-03-27")),
+   stringsAsFactors = FALSE
+)
+
+# Add the "dept" coulmn.
+emp.data$dept <- c("IT","Operations","IT","HR","Finance")
+v <- emp.data
+print(v)
+```
+\
+**Add Row**
+\
+To add more rows permanently to an existing data frame, we need to bring in the new rows in the same structure as the existing data frame and use the rbind() function.
+\
+In the example below we create a data frame with new rows and merge it with the existing data frame to create the final data frame.
+\
+```{r}
+# Create the first data frame.
+
+emp.data <- data.frame(
+   emp_id = c (1:5), 
+   emp_name = c("Ashiq","Pasha","Tanvir","Ruhullah","Habib"),
+   salary = c(623.3,515.2,611.0,729.0,843.25), 
+   
+   start_date = as.Date(c("2012-01-01", "2013-09-23", "2014-11-15", "2014-05-11",
+      "2015-03-27")),
+   dept = c("IT","Operations","IT","HR","Finance"),
+   stringsAsFactors = FALSE
+)
+```
+\
+```{r}
+# Create the second data frame
+
+emp.newdata <- 	data.frame(
+   emp_id = c (6:8), 
+   emp_name = c("Niloy","Tony","Sakib"),
+   salary = c(578.0,722.5,632.8), 
+   start_date = as.Date(c("2013-05-21","2013-07-30","2014-06-17")),
+   dept = c("IT","Operations","Fianance"),
+   stringsAsFactors = FALSE
+)
+```
+\
+```{r}
+# Bind the two data frames.
+
+emp.finaldata <- rbind(emp.data,emp.newdata)
+print(emp.finaldata)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
